@@ -1,8 +1,9 @@
-package com.popov.notification.service.utils.etc;
+package com.popov.notification.service.utils.phone;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.popov.notification.service.entity.person.phone.PhoneNumber;
 import org.springframework.stereotype.Component;
 
 
@@ -31,4 +32,7 @@ public class PhoneFormatting {
         }
     }
 
+    public String getCarrierCode(String nationalNumber) {
+        return nationalNumber.substring(1, 4);
+    }
 }

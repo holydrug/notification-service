@@ -1,5 +1,6 @@
 package com.popov.notification.service.entity.person;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.popov.notification.service.entity.person.phone.PhoneNumber;
 import com.popov.notification.service.entity.person.phone.validator.annotation.Phone;
 import lombok.*;
@@ -26,7 +27,9 @@ public class Person {
 
     @Phone
     @Valid
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "phone_number_id", referencedColumnName = "id")
     @NonNull
     private PhoneNumber phoneNumber;
 

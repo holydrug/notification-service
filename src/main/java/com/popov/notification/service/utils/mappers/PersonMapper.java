@@ -3,7 +3,7 @@ package com.popov.notification.service.utils.mappers;
 import com.popov.notification.service.entity.person.Person;
 import com.popov.notification.service.entity.person.dto.PersonDto;
 import com.popov.notification.service.entity.person.phone.PhoneNumber;
-import com.popov.notification.service.utils.etc.PhoneFormatting;
+import com.popov.notification.service.utils.phone.PhoneFormatting;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -18,15 +18,18 @@ public interface PersonMapper {
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 
     default Person toPerson(PersonDto personDto) {
+
         PhoneNumber phoneNumber = personDto.getPhoneNumber();
+
         phoneNumber.setNationalNumber(PhoneFormatting.getInstance()
-                .convertToNormalizedPhoneNumber
-                        (personDto.getPhoneNumber().getNationalNumber(), personDto.getPhoneNumber().getCountryCode()));
+                .convertToNormalizedPhoneNumber(phoneNumber.getNationalNumber(), phoneNumber.getCountryCode()));
+        phoneNumber.setCarrierCode(PhoneFormatting.getInstance().getCarrierCode(phoneNumber.getNationalNumber()));
 
         Person person = new Person();
         person.setPhoneNumber(phoneNumber);
         person.setName(personDto.getName());
         person.setId(personDto.getId());
+
 
         return person;
     }

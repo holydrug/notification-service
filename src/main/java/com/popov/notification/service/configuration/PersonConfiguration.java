@@ -13,6 +13,6 @@ public class PersonConfiguration {
     @Bean
     public CommandLineRunner saveSomeClients(PersonRepository personRepository) {
 
-        return args -> personRepository.save(new Person("AMOGUS", new PhoneNumber("RU", "+7977a5798544")));
+        return args -> personRepository.save(new Person("AMOGUS", new PhoneNumber("RU", "7977a5798544")));
     }
 }
