@@ -1,9 +1,7 @@
-package com.popov.notification.service.utils.mappers;
+package com.popov.notification.service.utils.mappers.person;
 
 import com.popov.notification.service.entity.person.Person;
 import com.popov.notification.service.entity.person.dto.PersonDto;
-import com.popov.notification.service.entity.person.phone.PhoneNumber;
-import com.popov.notification.service.utils.phone.PhoneFormatting;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -17,7 +15,7 @@ public interface PersonMapper {
 
     PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 
-    default Person toPerson(PersonDto personDto) {
+    Person toPerson(PersonDto personDto); /* {
 
         PhoneNumber phoneNumber = personDto.getPhoneNumber();
 
@@ -32,7 +30,7 @@ public interface PersonMapper {
 
 
         return person;
-    }
+    }*/
 
     PersonDto toPersonDto(Person person);
 

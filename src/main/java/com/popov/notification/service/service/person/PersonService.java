@@ -6,7 +6,7 @@ import com.popov.notification.service.entity.person.dto.PersonDto;
 import com.popov.notification.service.error.general.EntityAlreadyExistsException;
 import com.popov.notification.service.error.general.EntityNotFoundException;
 import com.popov.notification.service.repository.person.repository.PersonRepository;
-import com.popov.notification.service.utils.mappers.PersonMapper;
+import com.popov.notification.service.utils.mappers.person.PersonMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-
-
 public class PersonService implements PersonServiceDao {
 
     @Autowired

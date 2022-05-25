@@ -12,7 +12,6 @@ import javax.validation.Valid;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Entity
 @Table(name = "persons")
 public class Person {
@@ -32,8 +31,6 @@ public class Person {
     @JoinColumn(name = "phone_number_id", referencedColumnName = "id")
     @NonNull
     private PhoneNumber phoneNumber;
-
-
 
     /*
      */
