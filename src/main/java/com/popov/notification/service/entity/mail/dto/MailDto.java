@@ -1,5 +1,6 @@
 package com.popov.notification.service.entity.mail.dto;
 
+import com.popov.notification.service.entity.person.dto.PersonDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -20,5 +21,5 @@ public class MailDto {
     private Date sentTime;
     private Date editedTime;
 
-
+    private PersonDto personDto;
 }
