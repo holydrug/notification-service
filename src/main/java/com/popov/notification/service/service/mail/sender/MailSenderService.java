@@ -2,7 +2,6 @@ package com.popov.notification.service.service.mail.sender;
 
 import com.popov.notification.service.entity.mail.Mail;
 import com.popov.notification.service.entity.mail.dto.MailDto;
-import com.popov.notification.service.utils.mappers.mail.MailMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
