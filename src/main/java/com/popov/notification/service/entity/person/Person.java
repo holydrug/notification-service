@@ -7,9 +7,11 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 
-@Data
-@ToString
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -32,7 +34,17 @@ public class Person {
     @NonNull
     private PhoneNumber phoneNumber;
 
-    /*
-     */
+    @Email
+    private String email;
 
+    public Person(@NonNull String name, @NonNull PhoneNumber phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Person(@NonNull String name, @NonNull PhoneNumber phoneNumber, String email) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
 }
