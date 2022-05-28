@@ -4,9 +4,12 @@ import com.popov.notification.service.entity.mail.Mail;
 import com.popov.notification.service.entity.mail.dto.MailDto;
 import com.popov.notification.service.entity.person.Person;
 import com.popov.notification.service.entity.person.dto.PersonDto;
-import com.popov.notification.service.utils.mappers.mail.qualifires.ToEditedTime;
+import com.popov.notification.service.utils.mappers.mail.qualifires.PersonMapperLink;
 import com.popov.notification.service.utils.mappers.mail.qualifires.ToUpdatedTime;
-import org.mapstruct.*;
+import com.popov.notification.service.utils.mappers.person.PersonMapper;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 import java.time.Instant;
@@ -20,6 +23,7 @@ public interface MailMapper {
 
     MailDto toMailDto(Mail mail);
 
+    @Mapping(source = "personDto", target = "person", qualifiedBy = PersonMapperLink.class)
     @Mapping(target = "sentTime", qualifiedBy = ToUpdatedTime.class)
     public Mail toMail(MailDto mailDto);
 
@@ -32,6 +36,11 @@ public interface MailMapper {
     @ToUpdatedTime
     public static Date toUpdatedTime(Date time) {
         return Date.from(Instant.now());
+    }
+
+    @PersonMapperLink
+    public static Person toPerson(PersonDto personDto) {
+        return PersonMapper.INSTANCE.toPerson(personDto);
     }
 
 }
