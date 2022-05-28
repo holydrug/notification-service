@@ -1,14 +1,19 @@
 package com.popov.notification.service.entity.mail;
 
+import com.popov.notification.service.entity.person.Person;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 
+
+
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Mail {
@@ -23,4 +28,10 @@ public class Mail {
 
     private Date sentTime;
     private Date editedTime;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
+
+
 }
