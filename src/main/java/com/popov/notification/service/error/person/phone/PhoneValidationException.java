@@ -1,6 +1,8 @@
 package com.popov.notification.service.error.person.phone;
 
-public class PhoneValidationException extends RuntimeException {
+import com.popov.notification.service.error.general.common.NotificationServiceException;
+
+public class PhoneValidationException extends NotificationServiceException {
     public PhoneValidationException() {
         super();
     }
