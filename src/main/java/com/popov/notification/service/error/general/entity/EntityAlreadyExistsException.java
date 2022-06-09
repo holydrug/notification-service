@@ -1,5 +1,6 @@
-package com.popov.notification.service.error.general;
+package com.popov.notification.service.error.general.entity;
 
+import com.popov.notification.service.error.general.common.NotificationServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
@@ -8,7 +9,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 
 @Slf4j
-public class EntityAlreadyExistsException extends RuntimeException {
+public class EntityAlreadyExistsException extends NotificationServiceException {
 
     public EntityAlreadyExistsException(Class clazz, String... searchParamsMap) {
         super(EntityAlreadyExistsException.generateMessage(clazz.getSimpleName(), toMap(String.class, String.class, searchParamsMap)));

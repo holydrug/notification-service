@@ -3,8 +3,8 @@ package com.popov.notification.service.error;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.popov.notification.service.entity.error.ApiError;
-import com.popov.notification.service.error.general.EntityAlreadyExistsException;
-import com.popov.notification.service.error.general.EntityNotFoundException;
+import com.popov.notification.service.error.general.entity.EntityAlreadyExistsException;
+import com.popov.notification.service.error.general.entity.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

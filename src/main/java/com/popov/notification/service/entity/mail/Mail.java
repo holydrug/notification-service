@@ -1,22 +1,37 @@
 package com.popov.notification.service.entity.mail;
 
-import lombok.Data;
+import com.popov.notification.service.entity.person.Person;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+
+
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Mail {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "text")
-    private String text;
+    private String message;
+    private String receiver;
+    private String subject;
 
+    private Date sentTime;
+    private Date editedTime;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 
 
 }

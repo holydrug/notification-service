@@ -2,16 +2,13 @@ package com.popov.notification.service.entity.person.phone;
 
 import com.popov.notification.service.entity.person.Person;
 import com.popov.notification.service.utils.phone.PhoneFormatting;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 
-@Data
-@ToString
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @Table(name = "phones")
@@ -39,7 +36,17 @@ public class PhoneNumber {
     public PhoneNumber(String countryCode, String nationalNumber) {
         this.countryCode = countryCode;
         this.nationalNumber = PhoneFormatting.getInstance().convertToNormalizedPhoneNumber(nationalNumber, countryCode);
-        this.carrierCode = PhoneFormatting.getInstance().getCarrierCode(nationalNumber);
+        this.carrierCode = PhoneFormatting.getInstance().getCarrierCode(nationalNumber, countryCode);
     }
 
+    @Override
+    public String toString() {
+        return "\nPhoneNumber{" +
+                "id=" + id +
+                ", person=" + person +
+                ", countryCode='" + countryCode + '\'' +
+                ", carrierCode='" + carrierCode + '\'' +
+                ", nationalNumber='" + nationalNumber + '\'' +
+                '}';
+    }
 }

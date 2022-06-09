@@ -1,12 +1,11 @@
 package com.popov.notification.service.service.person;
 
-import com.popov.notification.service.dao.person.PersonServiceDao;
 import com.popov.notification.service.entity.person.Person;
 import com.popov.notification.service.entity.person.dto.PersonDto;
-import com.popov.notification.service.error.general.EntityAlreadyExistsException;
-import com.popov.notification.service.error.general.EntityNotFoundException;
+import com.popov.notification.service.error.general.entity.EntityAlreadyExistsException;
+import com.popov.notification.service.error.general.entity.EntityNotFoundException;
 import com.popov.notification.service.repository.person.repository.PersonRepository;
-import com.popov.notification.service.utils.mappers.PersonMapper;
+import com.popov.notification.service.utils.mappers.person.PersonMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-
-
-public class PersonService implements PersonServiceDao {
+public class PersonService {
 
     @Autowired
     private final PersonRepository personRepository;
 
-    @Override
     public Optional<PersonDto> get(Long id) {
 
         Person person = personRepository.findById(id)
@@ -35,13 +31,12 @@ public class PersonService implements PersonServiceDao {
         return Optional.of(PersonMapper.INSTANCE.toPersonDto(person));
     }
 
-    @Override
+
     public List<PersonDto> getAll() {
 
         return PersonMapper.INSTANCE.toPersonDtoList(personRepository.findAll());
     }
 
-    @Override
     public void save(PersonDto personDto) {
 
         if (personRepository.findById(personDto.getId()).isPresent()) {
@@ -52,7 +47,6 @@ public class PersonService implements PersonServiceDao {
         log.info("Person successfully saved with id: " + personDto.getId());
     }
 
-    @Override
     public void update(PersonDto personDto) {
 
         Person person = personRepository.findById(personDto.getId())
@@ -64,7 +58,6 @@ public class PersonService implements PersonServiceDao {
         log.info("Person successfully updated with id: " + personDto.getId());
     }
 
-    @Override
     public void delete(Long id) {
 
         Person person = personRepository.findById(id)
@@ -73,4 +66,5 @@ public class PersonService implements PersonServiceDao {
         personRepository.deleteById(PersonMapper.INSTANCE.toPersonDto(person).getId());
         log.info("Person successfully deleted with id: " + id);
     }
+
 }

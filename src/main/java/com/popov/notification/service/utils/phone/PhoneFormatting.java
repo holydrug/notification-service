@@ -1,10 +1,12 @@
 package com.popov.notification.service.utils.phone;
 
 import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberToCarrierMapper;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
-import com.popov.notification.service.entity.person.phone.PhoneNumber;
 import org.springframework.stereotype.Component;
+
+import java.util.Locale;
 
 
 @Component
@@ -32,7 +34,18 @@ public class PhoneFormatting {
         }
     }
 
-    public String getCarrierCode(String nationalNumber) {
-        return nationalNumber.substring(1, 4);
+    public String getCarrierCode(String nationalNumber, String countryCode) {
+
+
+        try {
+            PhoneNumberUtil phoneNumberUtil = PhoneNumberUtil.getInstance();
+            Phonenumber.PhoneNumber phoneNumberGoogle = phoneNumberUtil.parse(nationalNumber, countryCode);
+
+            if(PhoneNumberToCarrierMapper.getInstance().getNameForNumber(phoneNumberGoogle, Locale.ENGLISH) == "")
+                return "FAILED TO DETERMINATE";
+            return PhoneNumberToCarrierMapper.getInstance().getNameForNumber(phoneNumberGoogle, Locale.ENGLISH);
+        } catch (NumberParseException e) {
+            return null;
+        }
     }
 }
