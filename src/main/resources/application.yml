@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: dev
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/notifications
+    username: root
+    password: serega12345
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: notifiedservice@gmail.com
+    password: 7ryCBgg6RuhytXq
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
