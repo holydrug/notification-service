@@ -3,17 +3,15 @@ package com.popov.notification.service.service.distribution;
 import com.popov.notification.service.entity.mail.dto.MailDto;
 import com.popov.notification.service.service.distribution.filter.DistributionFilterService;
 import com.popov.notification.service.service.mail.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class DistributionService {
 
-    @Autowired
-    MailService mailService;
-
-    @Autowired
-    DistributionFilterService distrFilterService;
+    private final MailService mailService;
+    private final DistributionFilterService distrFilterService;
 
     public void sendMailsToAllEmail(MailDto mailDto) {
         distrFilterService.getListOfAllMails(mailDto).forEach(mailService::send);

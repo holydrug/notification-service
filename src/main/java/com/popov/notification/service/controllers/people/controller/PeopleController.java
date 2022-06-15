@@ -4,7 +4,6 @@ import com.popov.notification.service.entity.person.dto.PersonDto;
 import com.popov.notification.service.service.person.PersonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.Optional;
 @RequestMapping("person-management/persons/") // ресурс - персон
 public class PeopleController {
 
-    @Autowired
     private final PersonService personService;
 
     @GetMapping()

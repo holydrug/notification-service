@@ -7,8 +7,8 @@ import com.popov.notification.service.error.general.entity.EntityNotFoundExcepti
 import com.popov.notification.service.repository.person.repository.PersonRepository;
 import com.popov.notification.service.repository.person.repository.phone.PhoneNumberRepository;
 import com.popov.notification.service.utils.mappers.person.PersonMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +16,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class DistributionFilterService {
 
-    @Autowired
-    PersonRepository personRepository;
-    @Autowired
-    PhoneNumberRepository phoneNumberRepository;
+    private final PersonRepository personRepository;
+    private final PhoneNumberRepository phoneNumberRepository;
 
     private MailDto setReceiverToMailDtoFromPDto(Person person) {
         if(person == null)

@@ -6,7 +6,6 @@ import com.popov.notification.service.repository.mail.repository.MailRepository;
 import com.popov.notification.service.service.mail.sender.MailSenderService;
 import com.popov.notification.service.utils.mappers.mail.MailMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,10 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MailService {
 
-    @Autowired
-    private final MailSenderService mailSenderService;
 
-    @Autowired
+    private final MailSenderService mailSenderService;
     private final MailRepository mailRepository;
 
 
@@ -38,7 +35,7 @@ public class MailService {
     public void update(MailDto mailDto) {
 
         Mail mail = mailRepository.findById(mailDto.getId())
-                        .orElseThrow(() -> new NullPointerException());
+                        .orElseThrow(NullPointerException::new);
 
         mailDto.setSentTime(mail.getSentTime());
         MailMapper.INSTANCE.updateMailFromDto(mailDto, mail);
