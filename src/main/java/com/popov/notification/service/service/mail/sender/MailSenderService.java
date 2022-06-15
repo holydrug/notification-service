@@ -2,16 +2,16 @@ package com.popov.notification.service.service.mail.sender;
 
 import com.popov.notification.service.entity.mail.Mail;
 import com.popov.notification.service.entity.mail.dto.MailDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class MailSenderService {
 
-    @Autowired
-    JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
     public void sendMail(MailDto mailDto, Mail mail) {
 

@@ -8,7 +8,6 @@ import com.popov.notification.service.repository.person.repository.PersonReposit
 import com.popov.notification.service.utils.mappers.person.PersonMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.Optional;
 @Slf4j
 public class PersonService {
 
-    @Autowired
     private final PersonRepository personRepository;
 
     public Optional<PersonDto> get(Long id) {
