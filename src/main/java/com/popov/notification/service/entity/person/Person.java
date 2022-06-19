@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
+import java.io.Serializable;
 
 
 @Getter
@@ -16,7 +17,7 @@ import javax.validation.constraints.Email;
 @NoArgsConstructor
 @Entity
 @Table(name = "persons")
-public class Person {
+public class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

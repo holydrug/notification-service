@@ -5,6 +5,7 @@ import com.popov.notification.service.utils.phone.PhoneFormatting;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Getter
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "phones")
-public class PhoneNumber {
+public class PhoneNumber implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
