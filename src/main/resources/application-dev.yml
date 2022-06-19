@@ -2,10 +2,16 @@ spring:
   config:
     activate:
       on-profile: dev
-  rabbitmq:
-    host: my-rabbit
 
-rabbitMq:
+
+rabbitmq:
   host: localhost
   username: user
   password: password
+
+  exchanges:
+    internal: internal.exchange
+  queues:
+    notification: notification.queue
+  routing-keys:
+    notification: internal.notification.routing-key
