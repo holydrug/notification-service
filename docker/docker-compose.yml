@@ -2,6 +2,11 @@ version: '3.7'
 
 services:
 
+  notification-service-sender:
+    build:
+      context: ../notification-service-sender
+      dockerfile: ../docker/notification.service.sender/Dockerfile
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
