@@ -2,6 +2,7 @@ package com.popov.notification.service.controllers.distribution;
 
 import com.popov.notification.service.entity.mail.dto.MailDto;
 import com.popov.notification.service.service.distribution.DistributionService;
+import com.popov.notification.service.service.mail.MailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

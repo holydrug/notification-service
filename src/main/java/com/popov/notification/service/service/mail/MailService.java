@@ -51,7 +51,7 @@ public class MailService {
         MailMapper.INSTANCE.updateMailFromDto(mailDto, mail);
         mailDto.setEditedTime(mail.getEditedTime());
 
-        mailSenderService.sendMail(mailDto, mail);
+        mailSenderService.sendMail(mail);
         mailRepository.save(mail);
     }
 }

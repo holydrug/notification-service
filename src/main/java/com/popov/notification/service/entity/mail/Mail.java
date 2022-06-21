@@ -1,10 +1,7 @@
 package com.popov.notification.service.entity.mail;
 
 import com.popov.notification.service.entity.person.Person;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +14,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Mail implements Serializable {
 
     @Id
