@@ -25,7 +25,7 @@ public class PersonConfiguration {
             personRepository.save(new Person("SEBILLA", new PhoneNumber("RU", "79685243033"), "notifiedservice@gmail.com"));
             personRepository.save(new Person("SELICIA", new PhoneNumber("RU", "79117762654"), "notifiedservice@gmail.com"));
             personRepository.save(new Person("AMIRO", new PhoneNumber("RU", "79670503235"), "notifiedservice@gmail.com"));
-            personRepository.save(new Person("AMIRO", new PhoneNumber("RU", "79670503231"), "Igo2rlol@gmail.com"));
+            personRepository.save(new Person("AMIRO", new PhoneNumber("RU", "79670503231"), "notifiedservice@gmail.com"));
         };
     }
 
