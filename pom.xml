@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.popov</groupId>
-    <artifactId>NotificationService</artifactId>
+    <artifactId>notification-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>NotificationService</name>
+    <name>notification-service</name>
     <description>Demo project</description>
     <properties>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
@@ -139,12 +139,10 @@
     </dependencies>
 
     <build>
-
-
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
@@ -169,6 +167,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
