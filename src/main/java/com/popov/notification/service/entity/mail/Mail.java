@@ -1,5 +1,6 @@
 package com.popov.notification.service.entity.mail;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.popov.notification.service.entity.person.Person;
 import lombok.*;
 
@@ -22,11 +23,16 @@ public class Mail implements Serializable {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @JsonProperty
     private String message;
+    @JsonProperty
     private String receiver;
+    @JsonProperty
     private String subject;
 
+    @JsonProperty
     private Date sentTime;
+    @JsonProperty
     private Date editedTime;
 
     @ManyToOne

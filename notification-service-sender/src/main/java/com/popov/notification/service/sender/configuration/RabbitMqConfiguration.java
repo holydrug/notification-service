@@ -1,6 +1,7 @@
-package com.popov.notification.service.broker;
+package com.popov.notification.service.sender.configuration;
 
-import com.popov.notification.service.properties.YAMLProperties;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -11,28 +12,25 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.yaml.snakeyaml.Yaml;
 
 @RequiredArgsConstructor
 @Configuration
 public class RabbitMqConfiguration {
-
-
-    private final YAMLProperties properties;
 
     @Bean
     public CachingConnectionFactory connectionFactory() {
         return new CachingConnectionFactory("localhost");
     }
 
+
     @Bean
     public TopicExchange topicExchange() {
-        return new TopicExchange(properties.getRabbitMq().getExchanges().getInternal());
+        return new TopicExchange("internal.exchange");
     }
 
     @Bean
     public Queue defaultParsingQueue() {
-        return new Queue(properties.getRabbitMq().getQueues().getNotification());
+        return new Queue("notification.queue");
     }
 
     @Bean
@@ -40,19 +38,16 @@ public class RabbitMqConfiguration {
         return BindingBuilder
                 .bind(defaultParsingQueue())
                 .to(topicExchange())
-                .with(properties.getRabbitMq().getRoutingKeys().getNotification());
+                .with("internal.notification.routing-key");
     }
 
-    @Bean
-    public RabbitTemplate rabbitTemplate() {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
-        rabbitTemplate.setMessageConverter(converter());
-        return rabbitTemplate;
-    }
 
     @Bean
-    public Jackson2JsonMessageConverter converter() {
-        return new Jackson2JsonMessageConverter();
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return objectMapper;
     }
+
+
 }
-
