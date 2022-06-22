@@ -12,8 +12,8 @@ spring:
 
 rabbitmq:
   host: localhost
-  username: user
-  password: password
+  username: guest
+  password: guest
 
   exchanges:
     internal: internal.exchange
