@@ -1,4 +1,4 @@
-package com.popov.notification.service.broker;
+package com.popov.notification.service.configuration;
 
 import com.popov.notification.service.properties.YAMLProperties;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class RabbitMqConfiguration {
 
     @Bean
     public CachingConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("localhost");
+        return new CachingConnectionFactory(properties.getRabbitMq().getHost());
     }
 
     @Bean
