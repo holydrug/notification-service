@@ -4,23 +4,65 @@ version: '3.7'
 
 services:
 
+  notification-service:
+    container_name: notification-service
+    build:
+      context: ../
+      dockerfile: ./docker/notification.service/Dockerfile
+    image: notification-service:latest
+    restart: always
+    environment:
+      RABBIT_HOST: rabbitmq
+      RABBIT_USERNAME: holy
+      RABBIT_PASSWORD: holy
+      MYSQL_HOST: mysql
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+      SPRING_DATASOURCE_PLATFORM: org.hibernate.dialect.MySQL57Dialect
+      SPRING_JPA_DATABASE-PLATFORM: org.hibernate.dialect.MySQL57Dialect
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mysql
+      - notification-service-sender
+      - rabbitmq
 
   notification-service-sender:
+    container_name: notification-service-sender
     build:
-      context: ../notification-service-sender
+      context: ../notification-service-sender/
       dockerfile: ../docker/notification.service.sender/Dockerfile
+    image: notification-service-sender:latest
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBIT_HOST: rabbitmq
+      RABBIT_USERNAME: guest
+      RABBIT_PASSWORD: guest
 
-    ports:
-      - "5672:5672"
+
   rabbitmq:
-    image: rabbitmq:3-management
     container_name: rabbitmq
+    image: rabbitmq:3-management
     ports:
       - "5672:5672"
       - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password
+
+  mysql:
+    container_name: mysql
+    image: mysql:8
+    volumes:
+      - ../mysql:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: serega
+      MYSQL_DATABASE: notifications
 
   setup:
     build:
@@ -99,8 +141,8 @@ services:
       - elasticsearch
 
 networks:
-  default:
-    name: fruit-network
+  notification:
+    driver: bridge
   elk:
     driver: bridge
 
