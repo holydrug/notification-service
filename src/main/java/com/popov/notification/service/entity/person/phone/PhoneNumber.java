@@ -2,7 +2,9 @@ package com.popov.notification.service.entity.person.phone;
 
 import com.popov.notification.service.entity.person.Person;
 import com.popov.notification.service.utils.phone.PhoneFormatting;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
