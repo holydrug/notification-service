@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.utils.SerializationUtils;
 import org.springframework.stereotype.Component;
 
 @EnableRabbit
@@ -25,6 +24,7 @@ public class Consumer {
     @RabbitListener(queues = "${rabbitmq.queues.notification}")
     private void receive(Message message){
 
+        objectMapper.readValue(message.getBody(), Mail.class);
         Mail mail = objectMapper.readValue(message.getBody(), Mail.class);
         mailSenderService.sendMail(mail);
     }
