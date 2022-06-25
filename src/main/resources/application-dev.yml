@@ -3,11 +3,11 @@ spring:
     activate:
       on-profile: dev
 
-
 rabbitmq:
-  host: localhost
-  username: user
-  password: password
+
+  host: ${RABBIT_HOST}
+  username: ${RABBIT_USERNAME}
+  password: ${RABBIT_PASSWORD}
 
   exchanges:
     internal: internal.exchange
