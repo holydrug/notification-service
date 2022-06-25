@@ -22,7 +22,7 @@ public class Consumer {
     private final ObjectMapper objectMapper;
 
     @SneakyThrows
-    @RabbitListener(queues = "notification.queue")
+    @RabbitListener(queues = "${rabbitmq.queues.notification}")
     private void receive(Message message){
 
         Mail mail = objectMapper.readValue(message.getBody(), Mail.class);

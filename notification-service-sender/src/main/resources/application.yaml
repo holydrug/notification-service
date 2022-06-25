@@ -9,13 +9,11 @@ spring:
         smtp:
           starttls:
             enable: true
-server:
-  port: 8081
 
 rabbitmq:
-  host: localhost
-  username: guest
-  password: guest
+  host: ${RABBIT_HOST}
+  username: ${RABBIT_USERNAME}
+  password: ${RABBIT_PASSWORD}
 
   exchanges:
     internal: internal.exchange

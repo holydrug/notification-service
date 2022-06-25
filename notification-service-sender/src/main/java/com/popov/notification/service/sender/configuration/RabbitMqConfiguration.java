@@ -2,6 +2,7 @@ package com.popov.notification.service.sender.configuration;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.popov.notification.service.sender.properties.YAMLProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -17,28 +18,41 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfiguration {
 
+    private final YAMLProperties properties;
+
     @Bean
     public CachingConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory("localhost");
+        return new CachingConnectionFactory(properties.getRabbitMq().getHost());
     }
 
 
     @Bean
     public TopicExchange topicExchange() {
-        return new TopicExchange("internal.exchange");
+        return new TopicExchange(properties.getRabbitMq().getExchanges().getInternal());
     }
 
     @Bean
     public Queue defaultParsingQueue() {
-        return new Queue("notification.queue");
+        return new Queue(properties.getRabbitMq().getQueues().getNotification());
     }
 
+    @Bean
+    public RabbitTemplate rabbitTemplate() {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
+        rabbitTemplate.setMessageConverter(converter());
+        return rabbitTemplate;
+    }
+
+    @Bean
+    public Jackson2JsonMessageConverter converter() {
+        return new Jackson2JsonMessageConverter();
+    }
     @Bean
     public Binding queueToExchangeBinding() {
         return BindingBuilder
                 .bind(defaultParsingQueue())
                 .to(topicExchange())
-                .with("internal.notification.routing-key");
+                .with(properties.getRabbitMq().getRoutingKeys().getNotification());
     }
 
 
