@@ -25,7 +25,7 @@ public interface MailMapper {
 
     @Mapping(source = "personDto", target = "person", qualifiedBy = PersonMapperLink.class)
     @Mapping(target = "sentTime", qualifiedBy = ToUpdatedTime.class)
-    public Mail toMail(MailDto mailDto);
+    Mail toMail(MailDto mailDto);
 
     List<MailDto> toMailDtoList(List<Mail> mailList);
 
@@ -34,12 +34,12 @@ public interface MailMapper {
     void updateMailFromDto(MailDto dto, @MappingTarget Mail mail);
 
     @ToUpdatedTime
-    public static Date toUpdatedTime(Date time) {
+    static Date toUpdatedTime(Date time) {
         return Date.from(Instant.now());
     }
 
     @PersonMapperLink
-    public static Person toPerson(PersonDto personDto) {
+    static Person toPerson(PersonDto personDto) {
         return PersonMapper.INSTANCE.toPerson(personDto);
     }
 

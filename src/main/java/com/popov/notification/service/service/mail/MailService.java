@@ -9,7 +9,6 @@ import com.popov.notification.service.utils.mappers.mail.MailMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.utils.SerializationUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,8 +33,7 @@ public class MailService {
                 mail);
         log.info("MAIL SEND?");
 
-        /*mailSenderService.sendMail(mailDto, mail);
-        mailRepository.save(mail);*/
+        mailRepository.save(mail);
     }
 
     public List<MailDto> getAll() {
@@ -46,7 +44,7 @@ public class MailService {
     public void update(MailDto mailDto) {
 
         Mail mail = mailRepository.findById(mailDto.getId())
-                        .orElseThrow(NullPointerException::new);
+                .orElseThrow(NullPointerException::new);
 
         mailDto.setSentTime(mail.getSentTime());
         MailMapper.INSTANCE.updateMailFromDto(mailDto, mail);
