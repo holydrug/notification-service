@@ -20,6 +20,8 @@ services:
       MYSQL_PASSWORD: root
       SPRING_DATASOURCE_PLATFORM: org.hibernate.dialect.MySQL57Dialect
       SPRING_JPA_DATABASE-PLATFORM: org.hibernate.dialect.MySQL57Dialect
+    volumes:
+      - ../logback:/logback
     ports:
       - '8080:8080'
     depends_on:
