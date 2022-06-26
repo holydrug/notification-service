@@ -69,7 +69,7 @@
 
 ### Distribution Controller ###
 
-    POST request available:
+>POST request available:
 - with nothing (to send mail to all Person from repository with @RequestBody MailDto mailDto)
 - with carrier code as param (to send mails filtered to specific Operator with params = "carrierCode")
 
