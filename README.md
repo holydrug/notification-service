@@ -1,5 +1,26 @@
 # notification-service
 
+## Table of content ##
+- [Overview](#Overview)
+- [Logic](#Logic)
+  - [Person service](#Person-service)
+  - [Mail service](#Mail-service)
+  - [Distribution service](#Distribution-service)
+- [Rest controllers](#Rest controllers)
+  - [People Controller](#People-Controller)
+  - [Distribution Controller](#Distribution-Controller)
+- [Notification service sender module](#Notification-service-sender-module)
+- [Additional abilities](#Additional-abilities)
+  - [Logs](#Logs)
+  - [Error Handling](#Error-Handling)
+- [Miscellaneous](#Miscellaneous)
+  - [Properties](#Properties)
+  - [Mappers](#Mappers)
+- [Docker](#Docker)
+  - [Before building](#Before-building)
+  - [Building](#Building)
+- [Overview of docker compose services](#Overview-of-docker-compose-services)
+
 ## Overview ##
 
 - Main purpose of project is manipulate with persons in mysql db
@@ -27,7 +48,7 @@
 
 ### Mail service ###
 
->Service class which can send mail to any email adress
+>Service class which purpose is to send specific dto to queue
 
     Sending mail works with rabbitmq broker which sent message to queue
     After that mail will be saved in own repository
@@ -73,6 +94,12 @@
 - with nothing (to send mail to all Person from repository with @RequestBody MailDto mailDto)
 - with carrier code as param (to send mails filtered to specific Operator with params = "carrierCode")
 
+## Notification service sender module ##
+
+    That module connects to rabbitmq and consumes all messages from queue
+    
+    Message is converted with object mapper to understandable Mail local class
+    Next step for Mail class will be sending it to MailSenderService to successful mailing
 ## Additional abilities ##
 
 ### Logs ###
@@ -93,6 +120,64 @@
 > Main functionality is achieved by ApiError what convert all data in one pretty class automatically
 
     All available handlings you can find in GlobalExceptionHandler class
-    
 
-    
+## Miscellaneous ##
+
+### Properties ###
+
+    Project has application.yml which replace application.properties
+    Additional profile is application-dev.yml which discribes rabbitmq connect for MailService success connecnt
+
+### Mappers ###
+
+    Project uses Mapstruct to fast convert entities to dtos with specific qualifires
+    That functional can be found in utils package
+
+## Docker ##
+
+
+### Before building ###
+    Whole project is based on docker
+    To successful run you need to invoke mysql database and rabbitmq images at least
+
+> I configured docker-compose to run project without any issues with my configs
+> 
+> If you wish, you can configure it in docker/docker-compose.yml 
+>
+> Such as environments for rabbitmq or etc can be found and set also there
+
+### Building ###
+
+> To run services detached execute command below from root project dir: 
+
+    cd docker/ && docker-compose up -d 
+
+## Overview of docker compose services  ##
+
+### notification-service ###
+    Creates executable jar from Dockerfile
+    Links docker logback/ dir with local logback/
+    Depends on: mysql, notification-service-sender, rabbitmq
+### notification-service-sender ###
+    Creates executable jar from Dockerfile
+    Depends on: rabbitmq 
+### rabbitmq ###
+    Invoke rabbitmq
+    Also in docker/rabbitmq there are configurations with default session to handle any messages
+    data also linked to local docker/rabbitmq/data/ dir
+### mysql ###
+    Invoke mysql
+    Creates on start "notifications" empty database 
+    data is also will be linked to local docker/mysql/data dir
+### setup ELK ###
+    Invoke setup of ELK
+### elasticsearch ###
+    To reduce memmory trouble I set ES_JAVA_OPTS: -Xms512m -Xmx512m 
+    docker/elasticsearch/config/elasticsearch.yml is linked to docker container
+### logstash ###
+    To reduce memmory trouble I set LS_JAVA_OPTS: -Xms256m -Xmx256m
+    docker/logstash/config/logstash.yml is linked to docker container
+    docker/logstash/pipeline is linked to docker container
+    Also I parse local logback to see logs in kibana
+### kibana ###
+    docker/kibana/config/kibana.yml is linked to docker container 

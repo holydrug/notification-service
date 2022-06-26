@@ -10,13 +10,4 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: notifiedservice@gmail.com
-    password: tkgqamfzeltfabdp
-    properties:
-      mail:
-        smtp:
-          starttls:
-            enable: true
+
