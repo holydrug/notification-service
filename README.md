@@ -6,7 +6,7 @@
   - [Person service](#Person-service)
   - [Mail service](#Mail-service)
   - [Distribution service](#Distribution-service)
-- [Rest controllers](#Rest controllers)
+- [Rest controllers](#Rest-controllers)
   - [People Controller](#People-Controller)
   - [Distribution Controller](#Distribution-Controller)
 - [Notification service sender module](#Notification-service-sender-module)
