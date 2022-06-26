@@ -43,10 +43,10 @@
 
 ## Rest controllers ##
 
-> There are two controller:
-> > PeopleController (is mapped to person-management/persons/)
-> 
-> > DistributionController (is mapped to dist/)
+    There are two controller:
+    PeopleController (is mapped to person-management/persons/)
+ 
+    DistributionController (is mapped to dist/)
 
 ### People Controller ###
 
