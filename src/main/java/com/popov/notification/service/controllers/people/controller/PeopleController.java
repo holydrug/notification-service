@@ -1,7 +1,7 @@
 package com.popov.notification.service.controllers.people.controller;
 
 import com.popov.notification.service.entity.person.dto.PersonDto;
-import com.popov.notification.service.service.person.PersonService;
+import com.popov.notification.service.service.person.PersonServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("person-management/persons/") // ресурс - персон
 public class PeopleController {
 
-    private final PersonService personService;
+    private final PersonServiceImpl personService;
 
     @GetMapping()
     public List<PersonDto> getAllPeople() {

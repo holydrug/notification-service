@@ -1,7 +1,7 @@
 package com.popov.notification.service.controllers.distribution;
 
 import com.popov.notification.service.entity.mail.dto.MailDto;
-import com.popov.notification.service.service.distribution.DistributionService;
+import com.popov.notification.service.service.distribution.DistributionServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class DistributionController {
 
 
-    private final DistributionService distributionService;
+    private final DistributionServiceImpl distributionService;
 
     @PostMapping
     public void sendEmail(@RequestBody MailDto mailDto) {
