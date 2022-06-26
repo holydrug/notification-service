@@ -50,23 +50,21 @@
 
 ### People Controller ###
 
-    GET request available:
+>GET request available:
 - with nothing (to receive all persons)
 - with id in path (to receive specific person with that id)
 
-
-
-    POST request available:
+>POST request available:
 - with nothing (to save person with proper @RequestBody PersonDto)
 
 
 
-    PATCH request available:
+>PATCH request available:
 - with id in path (to update user fields)
 
 
 
-    DELETE request available:
+>DELETE request available:
 - with id in path (to delete user)
 
 ### Distribution Controller ###
