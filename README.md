@@ -155,6 +155,7 @@
     
 # YOU NEED ENABLE VPN FROM RUSSIA TO DOWNLOAD ELK AND SKIP 403 ERROR #
 > To run services execute command with enabled vpn
+    
     docker-compose up -d
 ## Overview of docker compose services  ##
 
