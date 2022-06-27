@@ -29,11 +29,11 @@ public interface PersonMapper {
 
 
     @SetEmailFromEntity
-    public static String setEmail(String email) {
+    static String setEmail(String email) {
         return email;
     }
     @ToNormalizedPhone
-    public static PhoneNumber toNormalizedPhone(PhoneNumber phoneNumber) {
+    static PhoneNumber toNormalizedPhone(PhoneNumber phoneNumber) {
 
         phoneNumber.setNationalNumber(PhoneFormatting.getInstance()
                 .convertToNormalizedPhoneNumber(phoneNumber.getNationalNumber(), phoneNumber.getCountryCode()));

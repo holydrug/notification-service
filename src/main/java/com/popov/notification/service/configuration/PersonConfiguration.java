@@ -2,13 +2,18 @@ package com.popov.notification.service.configuration;
 
 import com.popov.notification.service.entity.person.Person;
 import com.popov.notification.service.entity.person.phone.PhoneNumber;
+import com.popov.notification.service.properties.YAMLProperties;
 import com.popov.notification.service.repository.person.repository.PersonRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class PersonConfiguration {
+
+    private final YAMLProperties properties;
 
     @Bean
     public CommandLineRunner saveSomeClients(PersonRepository personRepository) {
@@ -18,6 +23,8 @@ public class PersonConfiguration {
             personRepository.save(new Person("SEBILLA", new PhoneNumber("RU", "79685243033"), "notifiedservice@gmail.com"));
             personRepository.save(new Person("SELICIA", new PhoneNumber("RU", "79117762654"), "notifiedservice@gmail.com"));
             personRepository.save(new Person("AMIRO", new PhoneNumber("RU", "79670503235"), "notifiedservice@gmail.com"));
+            personRepository.save(new Person("AMIRO", new PhoneNumber("RU", "79670503231"), "notifiedservice@gmail.com"));
         };
     }
+
 }

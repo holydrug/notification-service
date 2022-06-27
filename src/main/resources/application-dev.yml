@@ -3,3 +3,15 @@ spring:
     activate:
       on-profile: dev
 
+rabbitmq:
+
+  host: ${RABBIT_HOST}
+  username: ${RABBIT_USERNAME}
+  password: ${RABBIT_PASSWORD}
+
+  exchanges:
+    internal: internal.exchange
+  queues:
+    notification: notification.queue
+  routing-keys:
+    notification: internal.notification.routing-key
