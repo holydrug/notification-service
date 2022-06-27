@@ -148,12 +148,13 @@
 
 ### Building ###
 
-> To run services detached execute command below from root project dir: 
+> To build local services execute command below from root project dir: 
 
     cd docker/ &&
     docker-compose build notification-service notification-service-sender
     
 # YOU NEED ENABLE VPN FROM RUSSIA TO DOWNLOAD ELK AND SKIP 403 ERROR #
+> To run services execute command with enabled vpn
     docker-compose up -d
 ## Overview of docker compose services  ##
 
