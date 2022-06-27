@@ -1,0 +1,157 @@
+version: '3.7'
+
+
+
+services:
+
+  notification-service:
+    container_name: notification-service
+    build:
+      context: ../
+      dockerfile: ./docker/notification.service/Dockerfile
+    image: notification-service:latest
+    restart: always
+    environment:
+      RABBIT_HOST: rabbitmq
+      RABBIT_USERNAME: holy
+      RABBIT_PASSWORD: holy
+      MYSQL_HOST: mysql
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+      SPRING_DATASOURCE_PLATFORM: org.hibernate.dialect.MySQL57Dialect
+      SPRING_JPA_DATABASE-PLATFORM: org.hibernate.dialect.MySQL57Dialect
+    volumes:
+      - ../logback:/logback
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mysql
+      - notification-service-sender
+      - rabbitmq
+
+  notification-service-sender:
+    container_name: notification-service-sender
+    build:
+      context: ../notification-service-sender/
+      dockerfile: ../docker/notification.service.sender/Dockerfile
+    image: notification-service-sender:latest
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBIT_HOST: rabbitmq
+      RABBIT_USERNAME: guest
+      RABBIT_PASSWORD: guest
+
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    volumes:
+      - ./rabbitmq/etc/definitions.json:/etc/rabbitmq/definitions.json
+      - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ./rabbitmq/data:/var/lib/rabbitmq/
+  mysql:
+    container_name: mysql
+    image: mysql:8
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_PASSWORD: root
+      MYSQL_USER: serega
+      MYSQL_DATABASE: notifications
+
+  setup:
+    build:
+      context: setup
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    init: true
+    volumes:
+      - setup:/state:Z
+    environment:
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+    networks:
+      - elk
+
+  elasticsearch:
+    build:
+      context: elasticsearch
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
+      - elasticsearch:/usr/share/elasticsearch/data:z
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      # Bootstrap password.
+      # Used to initialize the keystore during the initial startup of
+      # Elasticsearch. Ignored on subsequent runs.
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
+      # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+      # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+      discovery.type: single-node
+
+    networks:
+      - elk
+
+  logstash:
+    build:
+      context: logstash
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro,Z
+      - ../logback:/usr/share/notification-service-logs
+    ports:
+      - "5044:5044"
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: -Xms256m -Xmx256m
+      LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    build:
+      context: kibana
+      args:
+        ELASTIC_VERSION: ${ELASTIC_VERSION}
+    volumes:
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
+    ports:
+      - "5601:5601"
+    environment:
+      KIBANA_SYSTEM_PASSWORD: ${KIBANA_SYSTEM_PASSWORD:-}
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+networks:
+  notification:
+    driver: bridge
+  elk:
+    driver: bridge
+
+volumes:
+  setup:
+  elasticsearch:
