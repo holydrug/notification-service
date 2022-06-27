@@ -153,7 +153,7 @@
     cd docker/ &&
     docker-compose build notification-service notification-service-sender
     
-    YOU NEED ENABLE VPN FROM RUSSIA TO DOWNLOAD ELK AND SKIP 403 ERROR
+# YOU NEED ENABLE VPN FROM RUSSIA TO DOWNLOAD ELK AND SKIP 403 ERROR #
     docker-compose up -d
 ## Overview of docker compose services  ##
 
