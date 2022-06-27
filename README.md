@@ -9,7 +9,8 @@
 - [Rest controllers](#Rest-controllers)
   - [People Controller](#People-Controller)
   - [Distribution Controller](#Distribution-Controller)
-- [Notification service sender module](#Notification-service-sender-module)
+- [Modules](#Modules)
+  - [Notification service sender module](#Notification-service-sender-module)
 - [Additional abilities](#Additional-abilities)
   - [Logs](#Logs)
   - [Error Handling](#Error-Handling)
@@ -94,7 +95,8 @@
 - with nothing (to send mail to all Person from repository with @RequestBody MailDto mailDto)
 - with carrier code as param (to send mails filtered to specific Operator with params = "carrierCode")
 
-## Notification service sender module ##
+## Modules ##
+### Notification service sender module ###
 
     That module connects to rabbitmq and consumes all messages from queue
     
