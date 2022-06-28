@@ -1,7 +1,7 @@
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: prod
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:3306/notifications
     username: ${MYSQL_USERNAME}
