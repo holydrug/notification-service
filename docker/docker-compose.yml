@@ -1,9 +1,5 @@
 version: '3.7'
-
-
-
 services:
-
   notification-service:
     container_name: notification-service
     build:
@@ -41,7 +37,6 @@ services:
       RABBIT_HOST: rabbitmq
       RABBIT_USERNAME: guest
       RABBIT_PASSWORD: guest
-
 
   rabbitmq:
     container_name: rabbitmq
@@ -104,7 +99,6 @@ services:
       # Use single node discovery in order to disable production mode and avoid bootstrap checks.
       # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
       discovery.type: single-node
-
     networks:
       - elk
 

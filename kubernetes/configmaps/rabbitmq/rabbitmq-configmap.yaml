@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
   name: rabbitmq-volume-config
 data:
+  enabled_plugins: |
+    [rabbitmq_management,rabbitmq_management_agent,rabbitmq_shovel].
   rabbitmq.conf: | 
     management.load_definitions = /etc/rabbitmq/definitions.json
   definitions.json: |
