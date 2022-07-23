@@ -21,7 +21,11 @@ public class RabbitMqConfiguration {
 
     @Bean
     public CachingConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory(properties.getRabbitMq().getHost());
+        CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+        connectionFactory.setUsername(properties.getRabbitMq().getUsername());
+        connectionFactory.setPassword(properties.getRabbitMq().getPassword());
+        connectionFactory.setHost(properties.getRabbitMq().getHost());
+        return connectionFactory;
     }
 
     @Bean

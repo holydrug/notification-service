@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notification-service-config
+data:
+  RABBIT_HOST: rabbitmq
+  RABBIT_USERNAME: user
+  RABBIT_PASSWORD: password
+  MYSQL_HOST: mysql
+  MYSQL_USERNAME: root
+  MYSQL_PASSWORD: root
+  SPRING_DATASOURCE_PLATFORM: org.hibernate.dialect.MySQL57Dialect
+  SPRING_JPA_DATABASE-PLATFORM: org.hibernate.dialect.MySQL57Dialect
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service
+spec:
+  selector:
+    matchLabels:
+      app: notification-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: notification-service
+    spec:
+      containers:
+        - name: notification-service
+          image: holydrug/notification-service:1.5
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: notification-service-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-service
+  labels:
+    app: notification-service
+spec:
+  type: NodePort
+  selector:
+    app: notification-service
+  ports:
+    - name: internal
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30808

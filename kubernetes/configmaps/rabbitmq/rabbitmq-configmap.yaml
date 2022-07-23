@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rabbitmq-volume-config
+data:
+  enabled_plugins: |
+    [rabbitmq_management,rabbitmq_management_agent,rabbitmq_shovel].
+  rabbitmq.conf: |
+    management.load_definitions = /etc/rabbitmq/definitions.json
+  definitions.json: |
+    {
+      "rabbit_version": "3.9.20",
+      "rabbitmq_version": "3.9.20",
+      "product_name": "RabbitMQ",
+      "product_version": "3.9.20",
+      "users": [
+        {
+          "name": "guest",
+          "password_hash": "QyEQaAa1UyNSkUtAxk8+yfTaGNi304SU1M1AgJ1Hq1j1P0yV",
+          "hashing_algorithm": "rabbit_password_hashing_sha256",
+          "tags": [
+            "administrator"
+          ],
+          "limits": {}
+        },
+        {
+          "name": "holy",
+          "password_hash": "yTud/Z9y08IqyNecZxoeNwpZ9638vqq6pXRNj8Zpyty9hLch",
+          "hashing_algorithm": "rabbit_password_hashing_sha256",
+          "tags": [
+            "administrator"
+          ],
+          "limits": {}
+        },
+        {
+          "name": "user",
+          "password_hash": "8dyVY1van2tsAHgdDoY1IZ2fuu4RwMmiUYgoodo3wo2hZLWZ",
+          "hashing_algorithm": "rabbit_password_hashing_sha256",
+          "tags": [
+            "administrator"
+          ],
+          "limits": {}
+        }
+      ],
+      "vhosts": [
+        {
+          "name": "/"
+        }
+      ],
+      "permissions": [
+        {
+          "user": "guest",
+          "vhost": "/",
+          "configure": ".*",
+          "write": ".*",
+          "read": ".*"
+        },
+        {
+          "user": "holy",
+          "vhost": "/",
+          "configure": ".*",
+          "write": ".*",
+          "read": ".*"
+        },
+        {
+          "user": "user",
+          "vhost": "/",
+          "configure": ".*",
+          "write": ".*",
+          "read": ".*"
+        }
+      ],
+      "topic_permissions": [],
+      "parameters": [],
+      "global_parameters": [
+        {
+          "name": "internal_cluster_id",
+          "value": "rabbitmq-cluster-id-cP36wbF0HS8TGTGhS9ya-w"
+        }
+      ],
+      "policies": [],
+      "queues": [],
+      "exchanges": [],
+      "bindings": []
+    }

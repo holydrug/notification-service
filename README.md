@@ -21,6 +21,7 @@
     - [Before building](#Before-building)
     - [Building](#Building)
 - [Overview of docker compose services](#Overview-of-docker-compose-services)
+- [Kubernetes](#Kubernetes)
 
 ## Overview ##
 
@@ -188,3 +189,54 @@
     Also I parse local logback to see logs in kibana
 ### kibana ###
     docker/kibana/config/kibana.yml is linked to docker container 
+
+## Kubernetes ##
+
+>You can check my yaml files in single node cluster Minikube
+
+### Installing minikube on ARCH linux ###
+
+    sudo pacman -S minikube kubectl
+
+### Getting started minikube on ARCH linux ###
+
+    minikube start && minikube dashboard
+
+### Applying yaml files to minikube ###
+  
+> Locate terminal to kubernetes folder
+
+You need create persistent volume to be able to manipulate with storage 
+    
+    kubectl apply -f persistentvolume/persistentvolume.yaml
+
+After that you should create persistent volume claim to get piece of that storage
+
+
+    kubectl apply -f persistentvolume/persistentvolumeclaim.yaml   
+
+Now you should configure rabbitmq config files with config-map
+
+
+    kubectl apply -f configmaps/rabbitmq/rabbitmq-configmap.yaml   
+
+After successful previous steps you can start rabbitmq
+
+
+    kubectl apply -f controllers/rabbitmq/rabbitmq-deployment-with-pv.yaml  
+
+Invoke mysql
+
+
+    kubectl apply -f controllers/mysql/mysql-deployment.yaml 
+
+Invoke base notification-service
+
+
+    kubectl apply -f controllers/notification-service/notification-service-deployment.yaml
+
+Invoke notification-service-sender
+> You need set MAIL_USERNAME and MAIL_PASSWORD to be able to use smtp.gmail.com host
+
+
+    kubectl apply -f controllers/notification-sender-service/notification-sender-service-deployment.yaml

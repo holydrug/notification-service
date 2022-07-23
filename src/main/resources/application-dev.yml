@@ -9,7 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 rabbitmq:
-
+  port: ${RABBIT_PORT}
   host: ${RABBIT_HOST}
   username: ${RABBIT_USERNAME}
   password: ${RABBIT_PASSWORD}
