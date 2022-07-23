@@ -2,8 +2,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: notifiedservice@gmail.com
-    password: tkgqamfzeltfabdp
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -11,6 +11,7 @@ spring:
             enable: true
 
 rabbitmq:
+  port: ${RABBIT_PORT}
   host: ${RABBIT_HOST}
   username: ${RABBIT_USERNAME}
   password: ${RABBIT_PASSWORD}

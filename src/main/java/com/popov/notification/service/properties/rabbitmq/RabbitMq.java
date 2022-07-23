@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class RabbitMq {
 
-    private int port;
+    private String port;
     private String host;
     private String username;
     private String password;
@@ -18,4 +18,6 @@ public class RabbitMq {
     private Exchanges exchanges;
     private Queues queues;
     private RoutingKeys routingKeys;
+
+
 }

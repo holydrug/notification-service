@@ -34,3 +34,5 @@ build/
 /logs/
 /mysql.data/
 /mysql
+/LOGBACK_PATH_IS_UNDEFINED
+/logback-local/
