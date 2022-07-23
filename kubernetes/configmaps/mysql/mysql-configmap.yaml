@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-config
-data:
-  MYSQL_ROOT_PASSWORD: root
-  MYSQL_PASSWORD: root
-  MYSQL_USER: serega
-  MYSQL_DATABASE: notifications

@@ -5,7 +5,7 @@ metadata:
 data:
   enabled_plugins: |
     [rabbitmq_management,rabbitmq_management_agent,rabbitmq_shovel].
-  rabbitmq.conf: | 
+  rabbitmq.conf: |
     management.load_definitions = /etc/rabbitmq/definitions.json
   definitions.json: |
     {
@@ -16,7 +16,7 @@ data:
       "users": [
         {
           "name": "guest",
-          "password_hash": "7Y8ROSwDnwRe46hyXRGDvnW00oygqL3Ub7NR6jP1BTEjS/GJ",
+          "password_hash": "QyEQaAa1UyNSkUtAxk8+yfTaGNi304SU1M1AgJ1Hq1j1P0yV",
           "hashing_algorithm": "rabbit_password_hashing_sha256",
           "tags": [
             "administrator"
@@ -25,7 +25,7 @@ data:
         },
         {
           "name": "holy",
-          "password_hash": "54mkjJ4JwLCmqKaZ5CFGETpqLIE7zEZSQCeE70xJXSs7MhD0",
+          "password_hash": "yTud/Z9y08IqyNecZxoeNwpZ9638vqq6pXRNj8Zpyty9hLch",
           "hashing_algorithm": "rabbit_password_hashing_sha256",
           "tags": [
             "administrator"
@@ -34,7 +34,7 @@ data:
         },
         {
           "name": "user",
-          "password_hash": "aNNOQeyQy7ADE0WcHwGJHgM/HdntDZHuk2psjgf6F5oHyoSr",
+          "password_hash": "8dyVY1van2tsAHgdDoY1IZ2fuu4RwMmiUYgoodo3wo2hZLWZ",
           "hashing_algorithm": "rabbit_password_hashing_sha256",
           "tags": [
             "administrator"
@@ -49,6 +49,13 @@ data:
       ],
       "permissions": [
         {
+          "user": "guest",
+          "vhost": "/",
+          "configure": ".*",
+          "write": ".*",
+          "read": ".*"
+        },
+        {
           "user": "holy",
           "vhost": "/",
           "configure": ".*",
@@ -61,13 +68,6 @@ data:
           "configure": ".*",
           "write": ".*",
           "read": ".*"
-        },
-        {
-          "user": "guest",
-          "vhost": "/",
-          "configure": ".*",
-          "write": ".*",
-          "read": ".*"
         }
       ],
       "topic_permissions": [],
@@ -75,7 +75,7 @@ data:
       "global_parameters": [
         {
           "name": "internal_cluster_id",
-          "value": "rabbitmq-cluster-id-f9YQ1DLRgsy7Edo4Q5aeEw"
+          "value": "rabbitmq-cluster-id-cP36wbF0HS8TGTGhS9ya-w"
         }
       ],
       "policies": [],

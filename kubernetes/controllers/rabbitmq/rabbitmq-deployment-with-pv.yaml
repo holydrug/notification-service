@@ -45,7 +45,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq-service
+  name: rabbitmq
   labels:
     app: rabbitmq
 spec:
@@ -57,7 +57,9 @@ spec:
       protocol: TCP
       port: 15672
       targetPort: 15672
+      nodePort: 31672
     - name: external
       protocol: TCP
       port: 5672
       targetPort: 5672
+      nodePort: 30672

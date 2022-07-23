@@ -9,6 +9,7 @@ services:
     restart: always
     environment:
       RABBIT_HOST: rabbitmq
+      RABBIT_PORT: 15672
       RABBIT_USERNAME: holy
       RABBIT_PASSWORD: holy
       MYSQL_HOST: mysql
@@ -34,6 +35,8 @@ services:
     depends_on:
       - rabbitmq
     environment:
+      MAIL_USERNAME: fixme
+      MAIL_PASSWORD: fixme
       RABBIT_HOST: rabbitmq
       RABBIT_USERNAME: guest
       RABBIT_PASSWORD: guest

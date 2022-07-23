@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RabbitMq {
-    private int port;
+    private String port;
     private String host;
     private String username;
     private String password;
