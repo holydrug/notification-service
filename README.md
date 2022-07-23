@@ -236,6 +236,7 @@ Invoke base notification-service
     kubectl apply -f controllers/notification-service/notification-service-deployment.yaml
 
 Invoke notification-service-sender
+> You need set MAIL_USERNAME and MAIL_PASSWORD to be able to use smtp.gmail.com host
 
 
     kubectl apply -f controllers/notification-sender-service/notification-sender-service-deployment.yaml
